@@ -1,16 +1,15 @@
 import React from "react";
+import classNames from "classnames";
 
 import "components/Button.scss";
 
 export default function Button(props) {
-  let buttonClass = "button";
-
-  // Add relevant CSS classes to the button
-  if (props.confirm) {
-    buttonClass += " button--confirm";
-  } else if (props.danger) {
-    buttonClass += " button--danger";
-  }
+  // Add relevant CSS classes to the button, using classnames library
+  //  to add 'button' to all, and other classes conditionally (on truthy)
+  const buttonClass = classNames("button", {
+    "button--confirm": props.confirm,
+    "button--danger": props.danger
+  });
 
 
   return (
@@ -21,5 +20,6 @@ export default function Button(props) {
         disabled={props.disabled}
       >{props.children}
       </button>
-    </>);
+    </>
+  );
 }
