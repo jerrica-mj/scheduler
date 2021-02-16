@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import "components/Application.scss";
 
@@ -26,6 +26,11 @@ const days = [
 
 
 export default function Application(props) {
+  // use a hook to update the selected day when one is clicked
+  // 'lift' the state up to the app component for use with
+  //   with multiple components
+  const [day, setDay] = useState("Monday");
+
   return (
     <main className="layout">
       <section className="sidebar">
@@ -39,8 +44,9 @@ export default function Application(props) {
         <nav className="sidebar__menu">
           <DayList
             days={days}
-            day={"Monday"}
-            setDay={day => console.log(day)}
+            day={day}
+            // update day to clicked element/day name
+            setDay={setDay}
           />
         </nav>
         <img
