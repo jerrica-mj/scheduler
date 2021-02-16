@@ -1,16 +1,19 @@
 import React from "react";
 import classNames from "classnames";
 
+import "components/DayListItem.scss";
+
 export default function DayListItem(props) {
-  const listItemClass = classNames({
-    "item--selected": props.selected
+  const dayClass = classNames("day-list__item", {
+    "day-list__item--selected": props.selected,
+    "day-list__item--full": props.spots < 1
   });
 
   return (
     <li
-      className={listItemClass}
+      className={dayClass}
       onClick={() => props.setDay(props.name)}
-      disabled={props.spots < 1}
+      // disabled={props.spots < 1}
     >
       <h2 className="text--regular">{props.name}</h2>
       <h3 className="text--light">{props.spots} spots remaining</h3>
