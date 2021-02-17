@@ -157,7 +157,7 @@ storiesOf("Appointment", module)
   .add("Show", () => (
     <Show
       student="Lydia Miller-Jones"
-      interviwer={interviewer}
+      interviewer={interviewer}
       onEdit={action("onEdit")}
       onDelet={action("onDelete")}
     />
