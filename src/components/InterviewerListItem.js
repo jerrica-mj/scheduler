@@ -13,10 +13,10 @@ export default function InterviewerListItem(props) {
   return (
     <li
       className={interviewerClass}
-      onClick={() => props.setInterviewer(props.name)}
+      onClick={props.setInterviewer}
       >
       <img
-        key={props.id}
+        // key={props.id} // each key already set in parent list
         className="interviewers__item-image"
         src={props.avatar}
         alt={props.name}
