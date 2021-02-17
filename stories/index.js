@@ -144,7 +144,7 @@ storiesOf("Appointment", module)
   })
   .add("Appointment", () => <Appointment />)
   .add("Appointment with Time", () => (
-    <Apointment time="12pm" />
+    <Appointment time="12pm" />
   ))
   .add("Header", () => (
     <Header time="12pm" />
