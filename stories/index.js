@@ -159,6 +159,6 @@ storiesOf("Appointment", module)
       student="Lydia Miller-Jones"
       interviewer={interviewer}
       onEdit={action("onEdit")}
-      onDelet={action("onDelete")}
+      onDelete={action("onDelete")}
     />
   ));
