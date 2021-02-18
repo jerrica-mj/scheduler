@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import "components/Application.scss";
 
 import DayList from "components/DayList";
+import Appointment from "./Appointment";
 
 
 // mock data for DayList component
@@ -24,7 +25,7 @@ const days = [
   },
 ];
 
-// mock Appointment data
+// mock Appointment data --> no bookings in 'last' appointment
 const appointments = [
   {
     id: 1,
@@ -60,11 +61,7 @@ const appointments = [
   },
   {
     id: 5,
-    time: "4pm"
-  },
-  {
-    id: "last",
-    time: "5pm",
+    time: "4pm",
     interview: {
       student: "Harry Potter",
       interviewer: {
@@ -73,6 +70,10 @@ const appointments = [
         avatar: "https://i.imgur.com/T2WwVfS.png"
       }
     }
+  },
+  {
+    id: "last",
+    time: "5pm",
   }
 ];
 
@@ -82,6 +83,18 @@ export default function Application(props) {
   // 'lift' the state up to the app component for use with
   //   with multiple components
   const [day, setDay] = useState("Monday");
+
+  // iterate over the appointments array to create elements for each
+  // spread the props to create props with matching object keys and prop names --> "name={appointment.name}"
+  const allAppointments = appointments.map(appointment => {
+    return (
+      <Appointment
+        key={appointment.id}
+        {...appointment}
+      />
+    );
+  });
+
 
   return (
     <main className="layout">
@@ -108,7 +121,7 @@ export default function Application(props) {
         />
       </section>
       <section className="schedule">
-        {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
+        {allAppointments}
       </section>
     </main>
   );
