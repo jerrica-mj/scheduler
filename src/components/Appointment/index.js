@@ -10,7 +10,8 @@ import Empty from "components/Appointment/Empty";
 export default function Appointment(props) {
   return (
     <article className="appointment">
-      <Header></Header>
+      <Header time={props.time}></Header>
+      {props.interview ? <Show /> : <Empty />}
     </article>
   );
 };
