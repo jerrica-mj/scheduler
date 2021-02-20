@@ -61,9 +61,15 @@ const appointments = [
 
 
 export default function Application(props) {
-  // use a hook to update the selected day when one is clicked
-  // 'lift' the state up to the app component for use with
-  //   with multiple components
+  // use a hook to update the combined state for day, days, and
+  //  appointments as an object --> 'lifted' up to the
+  //  Application component for use with various components
+  const [state, setState] = useState({
+    day: "Monday",
+    days: [],
+    appointments: {}
+  });
+
   const [day, setDay] = useState("Monday");
   const [days, setDays] = useState([]);
 
@@ -100,8 +106,8 @@ export default function Application(props) {
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
           <DayList
-            days={days}
-            day={day}
+            days={state.days}
+            day={state.day}
             // update day to clicked element/day name
             setDay={setDay}
           />
