@@ -69,13 +69,15 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
+  // define functions to update each combined state property
+  const setDay = day => setState({...state, day});
+  const setDays = days => setState({...state, days});
+  const setAppointments = appointments => setState({...state, appointments});
 
-  const [day, setDay] = useState("Monday");
-  const [days, setDays] = useState([]);
 
   // use an effect to make a GET request and update 'days'
   useEffect(() => {
-    const daysURL = "http://localhost:8001/api/days";
+    const daysURL = "/api/days";
     axios.get(daysURL).then((res) => {
       console.log(res.data);
       setDays(res.data);
