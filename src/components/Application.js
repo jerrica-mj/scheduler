@@ -71,7 +71,9 @@ export default function Application(props) {
   });
   // define functions to update each combined state property
   const setDay = day => setState({...state, day});
-  const setDays = days => setState({...state, days});
+  // pass a function with prev state to setState to remove the
+  //  useEffect dependency on state (would re-render each change)
+  const setDays = days => setState(prev => ({...prev, days}));
   const setAppointments = appointments => setState({...state, appointments});
 
 
