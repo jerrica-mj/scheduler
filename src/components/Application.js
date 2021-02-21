@@ -5,7 +5,7 @@ import "components/Application.scss";
 
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
-import {getAppointmentsForDay} from "../helpers/selectors";
+import {getAppointmentsForDay, getInterview} from "../helpers/selectors";
 
 
 // mock Appointment data --> no bookings in 'last' appointment
@@ -106,10 +106,13 @@ export default function Application(props) {
   // iterate over the appointments array to create elements for each
   // spread the props to create props with matching object keys and prop names --> "name={appointment.name}"
   const allAppointments = dailyAppointments.map(appointment => {
+    const interview = getInterview(state, appointment.interview);
+
     return (
       <Appointment
         key={appointment.id}
         {...appointment}
+        interview={interview}
       />
     );
   });
