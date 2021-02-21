@@ -78,10 +78,6 @@ export default function Application(props) {
   // const setDays = days => setState(prev => ({...prev, days}));
   // const setAppointments = appointments => setState({...state, appointments});
 
-  // use a helper function to get an array of Appointment objects
-  const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-
   // use an effect to make a GET request and update 'days'
   useEffect(() => {
     // routes to fetch data from the API
@@ -103,6 +99,9 @@ export default function Application(props) {
       }))
     });
   }, []);
+
+  // use a helper function to get an array of Appointment objects
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
   // iterate over the appointments array to create elements for each
   // spread the props to create props with matching object keys and prop names --> "name={appointment.name}"
