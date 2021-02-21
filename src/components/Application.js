@@ -8,56 +8,56 @@ import Appointment from "./Appointment";
 
 
 // mock Appointment data --> no bookings in 'last' appointment
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png"
-      }
-    }
-  },
-  {
-    id: 3,
-    time: "2pm",
-    interview: {
-      student: "Hermione Granger",
-      interviewer: {
-        id: 4,
-        name: "Cohana Roy",
-        avatar: "https://i.imgur.com/FK8V841.jpg"
-      }
-    }
-  },
-  {
-    id: 4,
-    time: "3pm"
-  },
-  {
-    id: 5,
-    time: "4pm",
-    interview: {
-      student: "Harry Potter",
-      interviewer: {
-        id: 3,
-        name: "Mildred Nazir",
-        avatar: "https://i.imgur.com/T2WwVfS.png"
-      }
-    }
-  },
-  {
-    id: "last",
-    time: "5pm",
-  }
-];
+// const appointments = [
+//   {
+//     id: 1,
+//     time: "12pm",
+//   },
+//   {
+//     id: 2,
+//     time: "1pm",
+//     interview: {
+//       student: "Lydia Miller-Jones",
+//       interviewer: {
+//         id: 1,
+//         name: "Sylvia Palmer",
+//         avatar: "https://i.imgur.com/LpaY82x.png"
+//       }
+//     }
+//   },
+//   {
+//     id: 3,
+//     time: "2pm",
+//     interview: {
+//       student: "Hermione Granger",
+//       interviewer: {
+//         id: 4,
+//         name: "Cohana Roy",
+//         avatar: "https://i.imgur.com/FK8V841.jpg"
+//       }
+//     }
+//   },
+//   {
+//     id: 4,
+//     time: "3pm"
+//   },
+//   {
+//     id: 5,
+//     time: "4pm",
+//     interview: {
+//       student: "Harry Potter",
+//       interviewer: {
+//         id: 3,
+//         name: "Mildred Nazir",
+//         avatar: "https://i.imgur.com/T2WwVfS.png"
+//       }
+//     }
+//   },
+//   {
+//     id: "last",
+//     time: "5pm",
+//   }
+// ];
 
 
 export default function Application(props) {
@@ -67,7 +67,8 @@ export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
   // define functions to update each combined state property
   const setDay = day => setState({...state, day});
@@ -76,19 +77,34 @@ export default function Application(props) {
   const setDays = days => setState(prev => ({...prev, days}));
   const setAppointments = appointments => setState({...state, appointments});
 
+  const dailyAppointments = [];
+
 
   // use an effect to make a GET request and update 'days'
   useEffect(() => {
-    const daysURL = "/api/days";
-    axios.get(daysURL).then((res) => {
-      console.log(res.data);
-      setDays(res.data);
+    // routes to fetch data from the API
+    const GET_DAYS = "http://localhost:8001/api/days";
+    const GET_APPOINTMENTS = "http://localhost:8001/api/appointments";
+    const GET_INTERVIEWERS = "http://localhost:8001/api/interviewers";
+
+    // fetch API data all at once with Promise.all
+    Promise.all([
+      axios.get(GET_DAYS),
+      axios.get(GET_APPOINTMENTS),
+      axios.get(GET_INTERVIEWERS)
+    ]).then((all) => {
+      // console.log(all);
+      setState(prev => ({...prev,
+        days: all[0].data,
+        appointments: all[1].data,
+        interviewers: all[2].data
+      }))
     });
   }, []);
 
   // iterate over the appointments array to create elements for each
   // spread the props to create props with matching object keys and prop names --> "name={appointment.name}"
-  const allAppointments = appointments.map(appointment => {
+  const allAppointments = dailyAppointments.map(appointment => {
     return (
       <Appointment
         key={appointment.id}
