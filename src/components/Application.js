@@ -5,6 +5,7 @@ import "components/Application.scss";
 
 import DayList from "components/DayList";
 import Appointment from "./Appointment";
+import {getAppointmentsForDay} from "../helpers/selectors";
 
 
 // mock Appointment data --> no bookings in 'last' appointment
@@ -72,12 +73,13 @@ export default function Application(props) {
   });
   // define functions to update each combined state property
   const setDay = day => setState({...state, day});
-  // pass a function with prev state to setState to remove the
-  //  useEffect dependency on state (would re-render each change)
-  const setDays = days => setState(prev => ({...prev, days}));
-  const setAppointments = appointments => setState({...state, appointments});
+  // // pass a function with prev state to setState to remove the
+  // //  useEffect dependency on state (would re-render each change)
+  // const setDays = days => setState(prev => ({...prev, days}));
+  // const setAppointments = appointments => setState({...state, appointments});
 
-  const dailyAppointments = [];
+  // use a helper function to get an array of Appointment objects
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
 
 
   // use an effect to make a GET request and update 'days'
@@ -140,6 +142,7 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {allAppointments}
+        <Appointment key="last" time="5pm" /* hardcode the end of the day 'appointment' */ />
       </section>
     </main>
   );
