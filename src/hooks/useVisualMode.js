@@ -6,5 +6,13 @@ import { useState } from "react";
 export default function useVisualMode(initialMode) {
   const [mode, setMode] = useState(initialMode);
 
-  return {mode};
+  /**
+   * Transition function to update the existing state with a new value.
+   * @param {*} newMode
+   */
+  const transition = (newMode) => {
+    setMode(newMode);
+  };
+
+  return {mode, transition};
 };
