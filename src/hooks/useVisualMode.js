@@ -14,13 +14,14 @@ export default function useVisualMode(initialMode) {
    */
   const transition = (newMode) => {
     setMode(newMode);
-    setHistory(...history, newMode);
+    setHistory([...history, newMode]);
   };
 
   /**
-   * Update the current mode state to the previous state value, per the mode state history array.
+   * Update the current mode state to the previous state value, per the mode state history array. Remove the last history array element as the mode is transitioned backwards.
    */
   const back = () => {
+    setHistory([...history.slice(0, history.length-1)]);
     const prevMode = history[history.length - 2];
     setMode(prevMode);
   };
