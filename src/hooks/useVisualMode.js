@@ -10,11 +10,20 @@ export default function useVisualMode(initialMode) {
 
   /**
    * Transition function to update the existing state with a new value, and add this new value to the state history array.
-   * @param {*} newMode
+   * @param {*} newMode The new value to be set as the state.
+   * @param {Boolean} replace Boolean to determine whether to replace the previous state in the history with the new value.
    */
-  const transition = (newMode) => {
+  const transition = (newMode, replace = false) => {
     setMode(newMode);
-    setHistory([...history, newMode]);
+    if(replace) {
+      setHistory((prev) => {
+        prev.pop();
+        prev.push(newMode);
+        return prev;
+      });
+    } else {
+      setHistory([...history, newMode]);
+    }
   };
 
   /**
