@@ -14,5 +14,10 @@ export default function useVisualMode(initialMode) {
     setMode(newMode);
   };
 
-  return {mode, transition};
+  // function to transition back to the previous mode state
+  const back = () => {
+
+  };
+
+  return {mode, transition, back};
 };
