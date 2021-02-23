@@ -7,7 +7,6 @@ import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import useVisualMode from "../../hooks/useVisualMode";
 import Form from "components/Appointment/Form";
-import {getInterviewersForDay} from "../../helpers/selectors";
 
 
 export default function Appointment(props) {
