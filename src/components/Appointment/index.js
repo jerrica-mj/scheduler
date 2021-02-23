@@ -21,10 +21,12 @@ export default function Appointment(props) {
   return (
     <article className="appointment">
       <Header time={props.time}></Header>
-      {props.interview ?
-        <Show student={props.interview.student} interviewer={props.interview.interviewer} /> :
-        <Empty />
-      }
+      {/* Render the appointment component conditionally */}
+      {mode === EMPTY && <Empty onAdd={() => console.log("Clicked onAdd")} />}
+      {mode === SHOW && <Show
+        student={props.interview.student}
+        interviewer={props.interview.interviewer}
+      />}
     </article>
   );
 };
