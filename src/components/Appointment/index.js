@@ -21,7 +21,6 @@ export default function Appointment(props) {
   );
 
 
-  let interviewID = 25;
   /**
    * Creates a new interview appointment object from form input.
    * @param {String} name Name of the student interviewee.
@@ -32,8 +31,7 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    interviewID++;
-    props.bookInterview(interviewID, interview);
+    props.bookInterview(props.id, interview);
   }
 
   return (
