@@ -31,7 +31,7 @@ export default function Appointment(props) {
       />}
       {/* TODO: Update interviewers to the fetched API array */}
       {mode === CREATE && <Form
-        interviewers={[]}
+        interviewers={props.interviewers}
         onSave={() => console.log("Clicked save button")}
         onCancel={() => back()}
       />}
