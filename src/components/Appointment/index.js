@@ -7,6 +7,7 @@ import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import useVisualMode from "../../hooks/useVisualMode";
 import Form from "components/Appointment/Form";
+import Status from "components/Appointment/Status";
 
 
 export default function Appointment(props) {
@@ -14,6 +15,7 @@ export default function Appointment(props) {
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
+  const SAVING = "SAVING";
 
   // destructure our useVisualMode hook and use to render components based on mode value
   const {mode, transition, back} = useVisualMode(
@@ -31,6 +33,9 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
+
+    transition(SAVING);
+
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW));
   }
@@ -50,6 +55,7 @@ export default function Appointment(props) {
         onSave={save}
         onCancel={() => back()}
       />}
+      {mode === SAVING && <Status message="Saving" />}
     </article>
   );
 };
