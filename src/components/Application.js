@@ -129,6 +129,24 @@ export default function Application(props) {
    */
   function bookInterview(id, interview) {
     console.log(id, interview);
+
+    // create an appointment object from the existing appointment with matching id, and updatee with interview object
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+
+    // update the corresponding record in the appointments object
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+
+    // update state object appointments record with above
+    setState({
+      ...state,
+      appointments
+    }));
   }
 
 
