@@ -6,6 +6,7 @@ import Header from "components/Appointment/Header";
 import Show from "components/Appointment/Show";
 import Empty from "components/Appointment/Empty";
 import useVisualMode from "../../hooks/useVisualMode";
+import Form from "components/Appointment/Form";
 
 
 export default function Appointment(props) {
@@ -27,6 +28,12 @@ export default function Appointment(props) {
       {mode === SHOW && <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
+      />}
+      {/* TODO: Update interviewers to the fetched API array */}
+      {mode === CREATE && <Form
+        interviewers={[]}
+        onSave={() => console.log("Clicked save button")}
+        onCancel={() => console.log("Clicked cancel button")}
       />}
     </article>
   );
