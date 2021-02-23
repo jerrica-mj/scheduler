@@ -12,6 +12,7 @@ export default function Appointment(props) {
   // the mode constants -- for useVisualMode hook
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
+  const CREATE = "CREATE";
 
   // destructure our useVisualMode hook and use to render components based on mode value
   const {mode, transition, back} = useVisualMode(
@@ -22,7 +23,7 @@ export default function Appointment(props) {
     <article className="appointment">
       <Header time={props.time}></Header>
       {/* Render the appointment component conditionally */}
-      {mode === EMPTY && <Empty onAdd={() => console.log("Clicked onAdd")} />}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
