@@ -37,3 +37,8 @@ export function getInterview(state, interview) {
 
   return {...interview, interviewer}
 };
+
+
+export function getInterviewersForDay() {
+  return [];
+};
