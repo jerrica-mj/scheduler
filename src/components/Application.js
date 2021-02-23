@@ -117,9 +117,20 @@ export default function Application(props) {
         {...appointment}
         interview={interview}
         interviewers={dailyInterviewers}
+        bookInterview={bookInterview}
       />
     );
   });
+
+  /**
+   * Createa  new appointment object, which will update the state
+   * @param {Number} id Number that uniquely identifies the interview.
+   * @param {Object} interview Object containing the interview details.
+   */
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
+
 
 
   return (
