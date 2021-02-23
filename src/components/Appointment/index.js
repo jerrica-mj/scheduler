@@ -20,6 +20,22 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
 
+
+  let interviewID = 25;
+  /**
+   * Creates a new interview appointment object from form input.
+   * @param {String} name Name of the student interviewee.
+   * @param {Object} interviewer Object with the interview details.
+   */
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    interviewID++;
+    props.bookInterview(interviewID, interview);
+  }
+
   return (
     <article className="appointment">
       <Header time={props.time}></Header>
@@ -32,7 +48,7 @@ export default function Appointment(props) {
       {/* TODO: Update interviewers to the fetched API array */}
       {mode === CREATE && <Form
         interviewers={props.interviewers}
-        onSave={() => console.log("Clicked save button")}
+        onSave={save}
         onCancel={() => back()}
       />}
     </article>
