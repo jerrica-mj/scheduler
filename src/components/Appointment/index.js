@@ -31,11 +31,8 @@ export default function Appointment(props) {
       student: name,
       interviewer
     };
-    props.bookInterview(props.id, interview);
-
-    // TODO: FIX THIS SHOW --> Show element not recieving interview obj?
-    // show the new appointment
-    // transition(SHOW);
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW));
   }
 
   return (

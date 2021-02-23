@@ -142,11 +142,16 @@ export default function Application(props) {
       [id]: appointment
     };
 
-    // update state object appointments record with above
-    setState({
-      ...state,
-      appointments
-    });
+    // update the API with the appointment data
+    return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+    .then(() => {
+      // update state object appointments record with above
+        setState({
+          ...state,
+          appointments
+        });
+      })
+      .catch(() => {setState(...state)});
   }
 
 
