@@ -19,6 +19,7 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
 
   // destructure our useVisualMode hook and use to render components based on mode value
   const {mode, transition, back} = useVisualMode(
@@ -62,10 +63,18 @@ export default function Appointment(props) {
       {mode === SHOW && <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
+        onEdit={() => transition(EDIT)}
         onDelete={() => transition(CONFIRM)}
       />}
       {/* TODO: Update interviewers to the fetched API array */}
       {mode === CREATE && <Form
+        interviewers={props.interviewers}
+        onSave={save}
+        onCancel={() => back()}
+      />}
+      {mode === EDIT && <Form
+        name={props.interview.student}
+        interviewer={props.interview.interviewer.id}
         interviewers={props.interviewers}
         onSave={save}
         onCancel={() => back()}
