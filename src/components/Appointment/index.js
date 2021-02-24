@@ -9,6 +9,7 @@ import useVisualMode from "../../hooks/useVisualMode";
 import Form from "components/Appointment/Form";
 import Status from "components/Appointment/Status";
 import Confirm from "components/Appointment/Confirm";
+import Error from "components/Appointment/Error";
 
 
 export default function Appointment(props) {
@@ -20,6 +21,8 @@ export default function Appointment(props) {
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
   const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR_SAVE";
+  const ERROR_DELETE = "ERROR_DELETE";
 
   // destructure our useVisualMode hook and use to render components based on mode value
   const {mode, transition, back} = useVisualMode(
@@ -41,7 +44,8 @@ export default function Appointment(props) {
     transition(SAVING);
 
     props.bookInterview(props.id, interview)
-      .then(() => transition(SHOW));
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE));
   }
 
   /**
@@ -51,7 +55,8 @@ export default function Appointment(props) {
 
     transition(DELETING);
     props.cancelInterview(props.id)
-    .then(() => transition(EMPTY));
+    .then(() => transition(EMPTY))
+    .catch(() => transition(ERROR_DELETE));
   }
 
 
@@ -85,6 +90,14 @@ export default function Appointment(props) {
         message="Are you sure you would like to delete?"
         onCancel={() => back()}
         onConfirm={deletion}
+      />}
+      {mode === ERROR_SAVE && <Error
+        message="An error occured while saving this interview. Try again."
+        onClose={() => transition(EMPTY)}
+      />}
+      {mode === ERROR_DELETE && <Error
+        message="An error occured while deleting this interview. Try again."
+        onClose={() => transition(SHOW)}
       />}
     </article>
   );
