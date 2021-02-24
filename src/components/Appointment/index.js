@@ -45,7 +45,7 @@ export default function Appointment(props) {
 
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch(() => transition(ERROR_SAVE));
+      .catch(error => transition(ERROR_SAVE));
   }
 
   /**
@@ -56,7 +56,7 @@ export default function Appointment(props) {
     transition(DELETING);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY))
-    .catch(() => transition(ERROR_DELETE));
+    .catch(error => transition(ERROR_DELETE));
   }
 
 
