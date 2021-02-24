@@ -22,7 +22,7 @@ export default function useVisualMode(initialMode) {
         return prev;
       });
     } else {
-      setHistory([...history, newMode]);
+      setHistory(prev => [...prev, newMode]);
     }
   };
 
@@ -32,9 +32,14 @@ export default function useVisualMode(initialMode) {
   const back = () => {
     // do not go back beyond the initialMode
     if(history.length > 1) {
-      const prevMode = history[history.length - 2];
-      setHistory([...history.slice(0, history.length-1)]);
-      setMode(prevMode);
+      setHistory(prev => {
+        const prevMode = prev[prev.length - 2];
+        setMode(prevMode);
+        return [...prev.slice(0, prev.length - 1)]
+      });
+      // const prevMode = history[history.length - 2];
+      // setHistory([...history.slice(0, history.length-1)]);
+      // setMode(prevMode);
     }
   };
 
