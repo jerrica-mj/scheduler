@@ -153,7 +153,7 @@ export default function Application(props) {
           appointments
         });
       })
-      .catch(() => {setState(...state)});
+      // .catch(() => {setState({...state})});
   }
 
 
@@ -175,7 +175,7 @@ export default function Application(props) {
     // delete the interview from the API, then update state
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
     .then(() => setState({...state, appointments}))
-    .catch(() => setState({...state}));
+    // .catch(() => setState({...state}));
   }
 
 
