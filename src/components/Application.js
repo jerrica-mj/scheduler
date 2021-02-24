@@ -122,6 +122,7 @@ export default function Application(props) {
     );
   });
 
+
   /**
    * Createa  new appointment object, which will update the state
    * @param {Number} id Number that uniquely identifies the interview.
@@ -154,6 +155,10 @@ export default function Application(props) {
       .catch(() => {setState(...state)});
   }
 
+
+  function cancelInterview(interviewId) {
+    console.log(interviewId);
+  }
 
 
   return (
