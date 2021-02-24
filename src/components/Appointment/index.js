@@ -45,7 +45,7 @@ export default function Appointment(props) {
 
     props.bookInterview(props.id, interview)
       .then(() => transition(SHOW))
-      .catch(error => transition(ERROR_SAVE));
+      .catch(error => transition(ERROR_SAVE, true));
   }
 
   /**
@@ -53,10 +53,10 @@ export default function Appointment(props) {
    */
   function deletion() {
 
-    transition(DELETING);
+    transition(DELETING, true);
     props.cancelInterview(props.id)
     .then(() => transition(EMPTY))
-    .catch(error => transition(ERROR_DELETE));
+    .catch(error => transition(ERROR_DELETE, true));
   }
 
 
@@ -93,11 +93,11 @@ export default function Appointment(props) {
       />}
       {mode === ERROR_SAVE && <Error
         message="An error occured while saving this interview. Try again."
-        onClose={() => transition(EMPTY)}
+        onClose={() => back()}
       />}
       {mode === ERROR_DELETE && <Error
         message="An error occured while deleting this interview. Try again."
-        onClose={() => transition(SHOW)}
+        onClose={() => back()}
       />}
     </article>
   );
