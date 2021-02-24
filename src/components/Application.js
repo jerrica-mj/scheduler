@@ -157,8 +157,27 @@ export default function Application(props) {
   }
 
 
-  function cancelInterview(interviewId) {
-    console.log(interviewId);
+  function cancelInterview(id) {
+    console.log(id);
+
+    // create an appointment with 'null' interview
+    const appointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+
+    // create updated appointments object, with updated appointment
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    }
+
+    console.log(appointments);
+
+    // update the API appointment with null interview
+    // return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
+
+    setState({...state, appointments});
   }
 
 
