@@ -172,12 +172,10 @@ export default function Application(props) {
       [id]: appointment
     }
 
-    console.log(appointments);
-
-    // update the API appointment with null interview
-    // return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
-
-    setState({...state, appointments});
+    // delete the interview from the API, then update state
+    return axios.delete(`http://localhost:8001/api/appointments/${id}`)
+    .then(() => setState({...state, appointments}))
+    .catch(() => setState({...state}));
   }
 
 
