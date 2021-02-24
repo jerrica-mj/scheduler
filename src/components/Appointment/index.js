@@ -16,6 +16,7 @@ export default function Appointment(props) {
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING";
+  const DELETING = "DELETING"
 
   // destructure our useVisualMode hook and use to render components based on mode value
   const {mode, transition, back} = useVisualMode(
@@ -45,9 +46,9 @@ export default function Appointment(props) {
    */
   function deletion() {
 
-    props.cancelInterview(props.id);
-
-    transition(EMPTY);
+    transition(DELETING);
+    props.cancelInterview(props.id)
+      .then(() => transition(EMPTY));
   }
 
 
@@ -68,6 +69,7 @@ export default function Appointment(props) {
         onCancel={() => back()}
       />}
       {mode === SAVING && <Status message="Saving" />}
+      {mode === DELETING && <Status message="Deleting" />}
     </article>
   );
 };
