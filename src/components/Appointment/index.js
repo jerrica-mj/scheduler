@@ -40,6 +40,17 @@ export default function Appointment(props) {
       .then(() => transition(SHOW));
   }
 
+  /**
+   * Deletes the interview object with the current props.id value by calling the cancelInterview function, then changes the mode using the back function.
+   */
+  function deletion() {
+
+    props.cancelInterview(props.id);
+
+    // back();
+  }
+
+
   return (
     <article className="appointment">
       <Header time={props.time}></Header>
@@ -48,6 +59,7 @@ export default function Appointment(props) {
       {mode === SHOW && <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
+        onDelete={deletion}
       />}
       {/* TODO: Update interviewers to the fetched API array */}
       {mode === CREATE && <Form
