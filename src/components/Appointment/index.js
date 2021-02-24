@@ -8,6 +8,7 @@ import Empty from "components/Appointment/Empty";
 import useVisualMode from "../../hooks/useVisualMode";
 import Form from "components/Appointment/Form";
 import Status from "components/Appointment/Status";
+import Confirm from "components/Appointment/Confirm";
 
 
 export default function Appointment(props) {
@@ -16,7 +17,8 @@ export default function Appointment(props) {
   const SHOW = "SHOW";
   const CREATE = "CREATE";
   const SAVING = "SAVING";
-  const DELETING = "DELETING"
+  const DELETING = "DELETING";
+  const CONFIRM = "CONFIRM";
 
   // destructure our useVisualMode hook and use to render components based on mode value
   const {mode, transition, back} = useVisualMode(
@@ -48,7 +50,7 @@ export default function Appointment(props) {
 
     transition(DELETING);
     props.cancelInterview(props.id)
-      .then(() => transition(EMPTY));
+    .then(() => transition(EMPTY));
   }
 
 
@@ -60,7 +62,7 @@ export default function Appointment(props) {
       {mode === SHOW && <Show
         student={props.interview.student}
         interviewer={props.interview.interviewer}
-        onDelete={deletion}
+        onDelete={() => transition(CONFIRM)}
       />}
       {/* TODO: Update interviewers to the fetched API array */}
       {mode === CREATE && <Form
@@ -70,6 +72,11 @@ export default function Appointment(props) {
       />}
       {mode === SAVING && <Status message="Saving" />}
       {mode === DELETING && <Status message="Deleting" />}
+      {mode === CONFIRM && <Confirm
+        message="Are you sure you would like to delete?"
+        onCancel={() => back()}
+        onConfirm={deletion}
+      />}
     </article>
   );
 };
