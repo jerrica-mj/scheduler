@@ -67,7 +67,13 @@ export default function useApplicationData() {
 
     // update the API with the appointment data
     return axios.put(`http://localhost:8001/api/appointments/${id}`, appointment)
-    .then(() => setState({...state, appointments}));
+    .then(() => setState({...state, appointments}))
+    // fetch the udpated days (spots) data from the API
+    .then(() => axios.get("http://localhost:8001/api/days"))
+    // update local state's appointments and spots/days data
+    .then(response => setState(prev => ({...prev,
+      days: response.data
+    })));
   }
 
 
@@ -88,7 +94,14 @@ export default function useApplicationData() {
 
     // delete the interview from the API, then update state
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
-    .then(() => setState({...state, appointments}));
+    // .then(() => setState({...state, appointments}))
+    // fetch the udpated days (spots) data from the API
+    .then(() => axios.get("http://localhost:8001/api/days"))
+    // update local state's appointments and spots/days data
+    .then(response => setState(prev => ({...prev,
+      days: response.data,
+      appointments
+    })));;
   }
 
 
