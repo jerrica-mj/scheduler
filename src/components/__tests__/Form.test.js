@@ -37,9 +37,7 @@ describe("Form", () => {
 
   it("validates that the student name is not blank", () => {
     // create a mock onSave function
-    const onSave = jest.fn((name, interviewer) =>{
-      console.log(name, interviewer);
-    });
+    const onSave = jest.fn();
 
     // render the Form, passing interviewers and onSave as props
     const {getByText} = render(
@@ -54,7 +52,6 @@ describe("Form", () => {
 
     /* 1. validation is shown */
     expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
-
     /* 2. onSave is not called */
     expect(onSave).not.toHaveBeenCalled();
   });
@@ -62,9 +59,7 @@ describe("Form", () => {
 
   it("calls onSave function when the name is defined", () => {
     // create a mock onSave function
-    const onSave = jest.fn ((name, interviewer) => {
-      console.log(name, interviewer);
-    });
+    const onSave = jest.fn();
 
     // render the Form, passing interviewers and onSave as props
     const {getByText, queryByText} = render(
@@ -80,10 +75,8 @@ describe("Form", () => {
 
     /* 3. validation is not shown */
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
-
     /* 4. onSave is called once*/
     expect(onSave).toHaveBeenCalledTimes(1);
-
     /* 5. onSave is called with the correct arguments */
     expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
   });
