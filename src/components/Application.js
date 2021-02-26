@@ -110,6 +110,7 @@ export default function Application(props) {
             day={state.day}
             // update day to clicked element/day name
             setDay={setDay}
+            data-testid="day-list"
           />
         </nav>
         <img
