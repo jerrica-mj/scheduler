@@ -9,6 +9,13 @@ import {render} from "@testing-library/react";
 import Application from "components/Application";
 
 // TESTS
-it("renders without crashing", () => {
-  render(<Application />);
+// use 'describe()' to group tests with text describing the tested component
+// use 'it()' or 'test()' (aliases) to declare each test
+describe("Application", () => {
+
+  it("renders without crashing", () => {
+    render(<Application />);
+  });
+
+
 });
