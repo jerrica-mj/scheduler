@@ -73,7 +73,8 @@ describe("Application", () => {
     await waitForElement(() => getByText(container, "Archie Cohen"));
 
     // 3. Click the "Delete" button on the booked appointment.
-    const appointment = getAllByTestId(container, "appointment")[0];
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments.find(appointment => queryByText(appointment, "Archie Cohen"));
     fireEvent.click(getByAltText(appointment, "Delete"));
 
     // 4. Check that the confirmation message is shown.
@@ -82,13 +83,16 @@ describe("Application", () => {
     // 5. Click the "Confirm" button on the confirmation.
     fireEvent.click(getByText(appointment, "Confirm"));
 
-    console.log(prettyDOM(appointment));
-
     // 6. Check that the element with the text "Deleting" is displayed.
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
 
     // 7. Wait until the element with the "Add" button is displayed.
+    await waitForElement(() => getByAltText(appointment, "Add"));
 
     // 8. Check that the DayListItem with the text "Monday" also has the text "1 spot remaining" --> since the appointment added from the last test persisted.
+    const days = getAllByTestId(container, "day");
+    const day = days.find(day => queryByText(day, "Monday"));
+    expect(getByText(day, /1 spot remaining/i)).toBeInTheDocument();
   });
 
 });
