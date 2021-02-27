@@ -91,8 +91,14 @@ export default {
 
 
   // PUT REQUESTS
-  put: jest.fn(url => {
+  put: jest.fn((url, appointment) => {
     if (url) {
+      // update fixture data
+      const {id, interview} = appointment;
+      fixtures.appointments[id] = {...fixtures.appointments[id], interview};
+      const [day] = fixtures.days.filter(day => day.appointments.includes(id));
+      day.spots--;
+
       return Promise.resolve({
         status: 204,
         statusText: "No Content"
