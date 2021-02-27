@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, waitForElementToBeRemoved, queryByText } from "@testing-library/react";
 
 import Application from "components/Application";
 import { fireEvent } from "@testing-library/react/dist";
@@ -57,11 +57,14 @@ describe("Application", () => {
     //  could use waitForElementToBeRemoved with "Saving"
     await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
 
-    debug();
-    console.log(prettyDOM(appointment)); // DEBUGGER CODE
-    // expect(getByText(appointment, "Lydia Miller-Jones")).toBeInTheDocument();
-
     // Check that the "Monday" DayListItem is displayed and has the text "no spots remaining"
+    const days = getAllByTestId(container, "day");
+    const day = days.find(day => queryByText(day, "Monday"));
+
+
+    debug();
+    console.log(prettyDOM(day)); // DEBUGGER CODE
+    // console.log(Object.values(days[0]));
 
   });
 
