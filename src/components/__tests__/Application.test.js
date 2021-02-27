@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
+import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText, waitForElementToBeRemoved } from "@testing-library/react";
 
 import Application from "components/Application";
 import { fireEvent } from "@testing-library/react/dist";
@@ -30,12 +30,10 @@ describe("Application", () => {
 
     // Wait until "Archie Cohen" is displayed
     await waitForElement(() => getByText(container, "Archie Cohen"));
-    // console.log(prettyDOM(container)); // app HTML once loaded
 
     // search to access the first apppointment in the container
     const appointments = getAllByTestId(container, "appointment"); // array
     const appointment = appointments[0];
-    // console.log(prettyDOM(appointment))
 
     // Click the "Add" button on the first empty appointment
     fireEvent.click(getByAltText(appointment, "Add"));
@@ -51,13 +49,17 @@ describe("Application", () => {
     // CLick the "Save" buton
     fireEvent.click(getByText(appointment, "Save"));
 
-    // console.log(prettyDOM(appointment));
-    debug();
 
     // Check that the element with "Saving" is displayed
     expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     // Wait until the element with "Lydia Miller-Jones" is displayed
+    //  could use waitForElementToBeRemoved with "Saving"
+    await waitForElement(() => getByText(appointment, "Lydia Miller-Jones"));
+
+    debug();
+    console.log(prettyDOM(appointment)); // DEBUGGER CODE
+    // expect(getByText(appointment, "Lydia Miller-Jones")).toBeInTheDocument();
 
     // Check that the "Monday" DayListItem is displayed and has the text "no spots remaining"
 
