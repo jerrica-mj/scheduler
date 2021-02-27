@@ -26,7 +26,7 @@ describe("Application", () => {
 
   it("loads data, books an interview, and reduces the spots remaining for the first day by 1", async () => {
     // Render the Application--getByText() will be used from import
-    const {container} = render(<Application />);
+    const {container, debug} = render(<Application />);
 
     // Wait until "Archie Cohen" is displayed
     await waitForElement(() => getByText(container, "Archie Cohen"));
@@ -51,9 +51,11 @@ describe("Application", () => {
     // CLick the "Save" buton
     fireEvent.click(getByText(appointment, "Save"));
 
-    console.log(prettyDOM(appointment));
+    // console.log(prettyDOM(appointment));
+    debug();
 
     // Check that the element with "Saving" is displayed
+    expect(getByText(appointment, "Saving")).toBeInTheDocument();
 
     // Wait until the element with "Lydia Miller-Jones" is displayed
 
