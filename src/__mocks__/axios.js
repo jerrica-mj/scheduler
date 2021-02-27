@@ -93,11 +93,28 @@ export default {
   // PUT REQUESTS
   put: jest.fn((url, appointment) => {
     if (url) {
-      // update fixture data
+      // update fixtures data
       const {id, interview} = appointment;
       fixtures.appointments[id] = {...fixtures.appointments[id], interview};
       const [day] = fixtures.days.filter(day => day.appointments.includes(id));
       day.spots--;
+
+      return Promise.resolve({
+        status: 204,
+        statusText: "No Content"
+      });
+    }
+  }),
+
+
+  // DELETE REQUESTS
+  delete: jest.fn((url) => {
+    if (url) {
+      // update fixtures data
+      const id = Number(url.replace("http://localhost:8001/api/appointments/", ""));
+      fixtures.appointments[id] = {...fixtures.appointments[id], interview: null};
+      const [day] = fixtures.days.filter(day => day.appointments.includes(id));
+      day.spots++;
 
       return Promise.resolve({
         status: 204,
