@@ -5,6 +5,8 @@ import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, 
 import Application from "components/Application";
 import { fireEvent } from "@testing-library/react/dist";
 
+import axios from "axios";
+
 afterEach(cleanup);
 
 
@@ -128,5 +130,11 @@ describe("Application", () => {
     const day = days.find(day => queryByText(day, "Monday"));
     expect(getByText(day, /1 spot remaining/i)).toBeInTheDocument();
   })
+
+
+  it("shows the save error when failing to save an appointment", () => {
+    // use mockRejectedValueOnce() so the mock will revert to the default behaviour after this single test request is complete
+    axios.put.mockRejectedValueOnce();
+  });
 
 });
