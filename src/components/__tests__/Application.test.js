@@ -62,11 +62,7 @@ describe("Application", () => {
     // queryByText will return 'null' for each iteration where the text is not found, and continue, whereas getByText would throw an error if the text is not found at the first iteration
     const day = days.find(day => queryByText(day, "Monday"));
 
-
-    debug();
-    console.log(prettyDOM(day)); // DEBUGGER CODE
-    // console.log(Object.values(days[0]));
-
+    expect(getByText(day, /no spots remaining/i)).toBeInTheDocument();
   });
 
 });
