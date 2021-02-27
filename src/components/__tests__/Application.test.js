@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId } from "@testing-library/react";
+import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText } from "@testing-library/react";
 
 import Application from "components/Application";
 import { fireEvent } from "@testing-library/react/dist";
@@ -34,13 +34,16 @@ describe("Application", () => {
     // console.log(prettyDOM(container));
 
     // search for all the appointments in the container
-    const appointments = getAllByTestId(container, "appointment");
-    console.log(prettyDOM(appointments));
+    // const appointments = getAllByTestId(container, "appointment");
+    // console.log(prettyDOM(appointments));
+
+    // access the first apppointment in the appointments array
+    const appointment = getAllByTestId(container, "appointment")[0];
+    // console.log(prettyDOM(appointment))
 
     // Click the "Add" button on the first empty appointment
-      // .then(() => {
-      //   fireEvent.click()
-      // })
+    fireEvent.click(getByAltText(appointment, "Add"));
+    console.log(prettyDOM(appointment))
 
     // Enter "Lydia Miller-Jones" into the input with placeholder "Enter Student Name"
 
