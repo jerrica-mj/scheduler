@@ -132,9 +132,53 @@ describe("Application", () => {
   })
 
 
-  it("shows the save error when failing to save an appointment", () => {
+  it("shows the save error when failing to save an appointment", async () => {
     // use mockRejectedValueOnce() so the mock will revert to the default behaviour after this single test request is complete
     axios.put.mockRejectedValueOnce();
+
+    const {container, debug} = render(<Application />);
+
+    await waitForElement(() => getByText(container, "Harry Potter"));
+
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments[1];
+    fireEvent.click(getByAltText(appointment, "Add"));
+
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {target: {value: "Lydia Miller-Jones"}});
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
+
+    fireEvent.click(getByText(appointment, "Save"));
+
+    // Wait for error element, rather than saving
+    await waitForElement(() => getByText(appointment, "Error"));
+
+    expect(getByText(appointment, "An error occured while saving this interview. Try again.")).toBeInTheDocument();
   });
+
+
+  it("shows the delete error when failing to delete an existing appointment", async () => {
+    axios.delete.mockRejectedValueOnce();
+
+    const {container} = render(<Application />);
+
+    await waitForElement(() => getByText(container, "Harry Potter"));
+
+    const appointments = getAllByTestId(container, "appointment");
+    const appointment = appointments.find((appointment) =>
+      queryByText(appointment, "Harry Potter")
+    );
+
+    fireEvent.click(getByAltText(appointment, "Delete"));
+
+    fireEvent.click(getByText(appointment, "Confirm"));
+
+    expect(getByText(appointment, "Deleting")).toBeInTheDocument();
+
+    await waitForElement(() => getByText(appointment, "Error"));
+
+    expect(getByText(appointment, "An error occured while deleting this interview. Try again.")).toBeInTheDocument();
+  });
+
+
 
 });
