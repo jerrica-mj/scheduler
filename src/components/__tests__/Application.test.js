@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText } from "@testing-library/react";
+import { render, cleanup, waitForElement, getByText, prettyDOM, getAllByTestId, getByAltText, getByPlaceholderText } from "@testing-library/react";
 
 import Application from "components/Application";
 import { fireEvent } from "@testing-library/react/dist";
@@ -43,13 +43,18 @@ describe("Application", () => {
 
     // Click the "Add" button on the first empty appointment
     fireEvent.click(getByAltText(appointment, "Add"));
-    console.log(prettyDOM(appointment))
 
     // Enter "Lydia Miller-Jones" into the input with placeholder "Enter Student Name"
+    fireEvent.change(getByPlaceholderText(appointment, /enter student name/i), {
+      target: {value: "Lydia Miller-Jones"}
+    });
 
-    // Click the first interviewer in the list
+    // Click the first interviewer in the list --> interviewers' images' alt text = interviewer names
+    fireEvent.click(getByAltText(appointment, "Sylvia Palmer"));
 
     // CLick the "Save" buton
+    fireEvent.click(getByText(appointment, "Save"));
+    console.log(prettyDOM(appointment));
 
     // Check that the element with "Saving" is displayed
 
