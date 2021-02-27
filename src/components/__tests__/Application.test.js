@@ -59,6 +59,7 @@ describe("Application", () => {
 
     // Check that the "Monday" DayListItem is displayed and has the text "no spots remaining"
     const days = getAllByTestId(container, "day");
+    // queryByText will return 'null' for each iteration where the text is not found, and continue, whereas getByText would throw an error if the text is not found at the first iteration
     const day = days.find(day => queryByText(day, "Monday"));
 
 
