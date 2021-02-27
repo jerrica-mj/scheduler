@@ -95,9 +95,13 @@ export default {
     if (url) {
       // update fixtures data
       const {id, interview} = appointment;
+      const prevInterview = fixtures.appointments[id].interview;
       fixtures.appointments[id] = {...fixtures.appointments[id], interview};
       const [day] = fixtures.days.filter(day => day.appointments.includes(id));
-      day.spots--;
+      // decrement spots if new appointment, leave if an edit
+      if (!prevInterview) {
+        day.spots--;
+      }
 
       return Promise.resolve({
         status: 204,
