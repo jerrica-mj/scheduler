@@ -4,8 +4,7 @@ import classNames from "classnames";
 import "components/Button.scss";
 
 export default function Button(props) {
-  // Add relevant CSS classes to the button, using classnames library
-  //  to add 'button' to all, and other classes conditionally (on truthy)
+  // Add correct CSS classes conditionally, using classnames library
   const buttonClass = classNames("button", {
     "button--confirm": props.confirm,
     "button--danger": props.danger

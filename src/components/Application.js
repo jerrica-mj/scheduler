@@ -8,59 +8,6 @@ import {getAppointmentsForDay, getInterview, getInterviewersForDay} from "../hel
 import useApplicationData from "hooks/useApplicationData";
 
 
-// mock Appointment data --> no bookings in 'last' appointment
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png"
-//       }
-//     }
-//   },
-//   {
-//     id: 3,
-//     time: "2pm",
-//     interview: {
-//       student: "Hermione Granger",
-//       interviewer: {
-//         id: 4,
-//         name: "Cohana Roy",
-//         avatar: "https://i.imgur.com/FK8V841.jpg"
-//       }
-//     }
-//   },
-//   {
-//     id: 4,
-//     time: "3pm"
-//   },
-//   {
-//     id: 5,
-//     time: "4pm",
-//     interview: {
-//       student: "Harry Potter",
-//       interviewer: {
-//         id: 3,
-//         name: "Mildred Nazir",
-//         avatar: "https://i.imgur.com/T2WwVfS.png"
-//       }
-//     }
-//   },
-//   {
-//     id: "last",
-//     time: "5pm",
-//   }
-// ];
-
-
 export default function Application(props) {
   // import state from the useApplicationData hook
   const {
@@ -70,14 +17,11 @@ export default function Application(props) {
     cancelInterview
   } = useApplicationData();
 
-  // use a helper function to get an array of Appointment objects
+  // get arrays of appointments and interviewers for the current day
   const dailyAppointments = getAppointmentsForDay(state, state.day);
-
-  // use a selector to get an array of interviewer object for the day
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
-  // iterate over the appointments array to create elements for each
-  // spread the props to create props with matching object keys and prop names --> "name={appointment.name}"
+  // iterate over the appointments to create elements for each
   const allAppointments = dailyAppointments.map(appointment => {
     const interview = getInterview(state, appointment.interview);
 
@@ -97,7 +41,6 @@ export default function Application(props) {
   return (
     <main className="layout">
       <section className="sidebar">
-        {/* Replace this with the sidebar elements during the "Project Setup & Familiarity" activity. */}
         <img
           className="sidebar--centered"
           src="images/logo.png"
@@ -108,7 +51,6 @@ export default function Application(props) {
           <DayList
             days={state.days}
             day={state.day}
-            // update day to clicked element/day name
             setDay={setDay}
             data-testid="day-list"
           />
@@ -121,7 +63,8 @@ export default function Application(props) {
       </section>
       <section className="schedule">
         {allAppointments}
-        <Appointment key="last" time="5pm" /* hardcode the end of the day 'appointment' */ />
+        {/* hardcode a hidden appointment as the end of the day */}
+        <Appointment key="last" time="5pm" />
       </section>
     </main>
   );

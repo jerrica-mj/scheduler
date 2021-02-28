@@ -5,9 +5,7 @@ import axios from "axios";
 
 
 export default function useApplicationData() {
-  // use a hook to update the combined state for day, days, and
-  //  appointments as an object --> 'lifted' up to the
-  //  Application component for use with various components
+  // track and set multiple states for use across various components in the Application
   const [state, setState] = useState({
     day: "Monday",
     days: [],
@@ -16,10 +14,6 @@ export default function useApplicationData() {
   });
   // define functions to update each combined state property
   const setDay = day => setState({...state, day});
-  // // pass a function with prev state to setState to remove the
-  // //  useEffect dependency on state (would re-render each change)
-  // const setDays = days => setState(prev => ({...prev, days}));
-  // const setAppointments = appointments => setState({...state, appointments});
 
   // use an effect to make a GET request and update 'days'
   useEffect(() => {
@@ -34,7 +28,6 @@ export default function useApplicationData() {
       axios.get(GET_APPOINTMENTS),
       axios.get(GET_INTERVIEWERS)
     ]).then((all) => {
-      // console.log(all);
       setState(prev => ({...prev,
         days: all[0].data,
         appointments: all[1].data,
@@ -94,7 +87,6 @@ export default function useApplicationData() {
 
     // delete the interview from the API, then update state
     return axios.delete(`http://localhost:8001/api/appointments/${id}`)
-    // .then(() => setState({...state, appointments}))
     // fetch the udpated days (spots) data from the API
     .then(() => axios.get("http://localhost:8001/api/days"))
     // update local state's appointments and spots/days data

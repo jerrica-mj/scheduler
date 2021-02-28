@@ -13,7 +13,7 @@ import Error from "components/Appointment/Error";
 
 
 export default function Appointment(props) {
-  // the mode constants -- for useVisualMode hook
+  // mode constants -- for useVisualMode hook
   const EMPTY = "EMPTY";
   const SHOW = "SHOW";
   const CREATE = "CREATE";
@@ -71,7 +71,6 @@ export default function Appointment(props) {
         onEdit={() => transition(EDIT)}
         onDelete={() => transition(CONFIRM)}
       />}
-      {/* TODO: Update interviewers to the fetched API array */}
       {mode === CREATE && <Form
         interviewers={props.interviewers}
         onSave={save}

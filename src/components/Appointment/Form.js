@@ -49,7 +49,7 @@ export default function Form(props) {
             onChange={(event) => setName(event.target.value)}
             data-testid="student-name-input"
           />
-          {/* container for name input error message (when blank) */}
+          {/* container for name input error message (when input is blank) */}
           <section className="appointment__validation">{error}</section>
         </form>
         <InterviewerList interviewers={props.interviewers} value={interviewer} onChange={setInterviewer} />

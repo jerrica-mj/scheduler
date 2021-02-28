@@ -6,8 +6,7 @@
 export function getAppointmentsForDay(state, day) {
   const allDays = state.days;
   const allAppointments = state.appointments;
-  // filter the API response data array to only have
-  //  the day specified
+  // filter the API data array to selected day
   const theDay = allDays.filter(dayObj => dayObj.name === day);
 
   // return [] if day not found, or missing days
@@ -16,9 +15,6 @@ export function getAppointmentsForDay(state, day) {
   }
 
   const dayApptIds = theDay[0].appointments;
-
-  // create an array of the appointment objects from
-  //  allAppointments that match theDay's appointments
   const dayAppointments = dayApptIds.map(id => allAppointments[id]);
 
   return dayAppointments;
@@ -51,9 +47,8 @@ export function getInterviewersForDay(state, day) {
     return [];
   }
 
-  // get the array of interviewer ids from the day object
+  // get this day's array of interviewer objects
   const interviewersIDs = daySchedule[0].interviewers;
-  // switch the ids out with the corresponding interviewer objects
   const interviewersForDay = interviewersIDs.map(id => allInterviewers[id]);
 
   return interviewersForDay;

@@ -8,7 +8,6 @@ export default function InterviewerListItem(props) {
     "interviewers__item--selected": props.selected
   });
 
-  // const visibleName = props.selected ? props.name : undefined;
 
   return (
     <li
@@ -16,7 +15,6 @@ export default function InterviewerListItem(props) {
       onClick={props.setInterviewer}
       >
       <img
-        // key={props.id} // each key already set in parent list
         className="interviewers__item-image"
         src={props.avatar}
         alt={props.name}
