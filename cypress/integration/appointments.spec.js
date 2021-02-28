@@ -11,7 +11,7 @@ describe("Appointments", () => {
   });
 
 
-  it("should book an interview", () => {
+  xit("should book an interview", () => {
     // Click the "Add" button in the second appoitnment
     cy.get("[alt=Add]")
       .first() // use first because there is a hidden Add button in the last appointment, and Cypress can only click a single element
@@ -34,5 +34,26 @@ describe("Appointments", () => {
     cy.contains(".appointment__card--show", "Sylvia Palmer");
   });
 
+
+  it("should edit an interview", () => {
+    // Use force property of click to click the hidden Edit button
+    cy.get("[alt=Edit]")
+      .first()
+      .click({force:true});
+
+    cy.get("[data-testid=student-name-input]")
+      .clear()
+      .type("Harry Potter");
+
+    cy.get("[alt='Tori Malcolm']")
+      .click();
+
+    cy.contains("Save")
+      .click();
+
+    // Verify changes appear
+    cy.contains(".appointment__card--show", "Harry Potter");
+    cy.contains(".appointment__card--show", "Tori Malcolm");
+  });
 
 });
