@@ -12,6 +12,10 @@ describe("Appointments", () => {
     cy.get("[alt=Add]")
       .first() // use first because there is a hidden Add button in the last appointment, and Cypress can only click a single element
       .click();
+
+    // Enter the student name in the form input field
+    cy.get("[data-testid=student-name-input]")
+      .type("Lydia Miller-Jones");
   });
 
 
