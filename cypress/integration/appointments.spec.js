@@ -16,6 +16,10 @@ describe("Appointments", () => {
     // Enter the student name in the form input field
     cy.get("[data-testid=student-name-input]")
       .type("Lydia Miller-Jones");
+
+    // Choose (click) an interviewer - "Sylvia Palmer"
+    cy.get("[alt='Sylvia Palmer']")
+      .click();
   });
 
 
