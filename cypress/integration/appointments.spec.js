@@ -26,6 +26,10 @@ describe("Appointments", () => {
     // Click the "Save" button
     cy.contains("Save")
       .click();
+
+    // Wait until the "Show" component displays with student and interviewer names. Look for the correct names within an element with class ".appointment__card--show"
+    cy.contains(".appointment__card--show", "Lydia Miller-Jones");
+    cy.contains(".appointment__card--show", "Sylvia Palmer");
   });
 
 
