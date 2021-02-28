@@ -11,7 +11,7 @@ describe("Appointments", () => {
   });
 
 
-  xit("should book an interview", () => {
+  it("should book an interview", () => {
     // Click the "Add" button in the second appoitnment
     cy.get("[alt=Add]")
       .first() // use first because there is a hidden Add button in the last appointment, and Cypress can only click a single element
@@ -54,6 +54,27 @@ describe("Appointments", () => {
     // Verify changes appear
     cy.contains(".appointment__card--show", "Harry Potter");
     cy.contains(".appointment__card--show", "Tori Malcolm");
+  });
+
+
+  it("should cancel an interview", () => {
+    cy.get("[alt=Delete]")
+      .first()
+      .click({force:true});
+
+    cy.contains("Confirm")
+      .click();
+
+    // Check that the deleting indicator is shown
+    cy.contains("Deleting")
+      .should("exist");
+    // Check that the deleting indicator is removed
+    cy.contains("Deleting")
+      .should("not.exist");
+
+    // Check that the deleted appointment no longer exists
+    cy.contains(".appointment__card--show", "Archie Cohen")
+      .should("not.exist");
   });
 
 });
