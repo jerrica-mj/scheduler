@@ -4,6 +4,8 @@ describe("Appointments", () => {
 
 
   it("should book an interview", () => {
+    // Reset the server state and go to the root
+    cy.request("GET", "/api/debug/reset");
     cy.visit("/");
     // Ensure data is loaded --> built-in retry of contains
     cy.contains("Monday");
@@ -19,6 +21,10 @@ describe("Appointments", () => {
 
     // Choose (click) an interviewer - "Sylvia Palmer"
     cy.get("[alt='Sylvia Palmer']")
+      .click();
+
+    // Click the "Save" button
+    cy.contains("Save")
       .click();
   });
 
