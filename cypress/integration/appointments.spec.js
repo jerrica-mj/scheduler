@@ -2,14 +2,16 @@ const { CYCLIC_KEY } = require("@storybook/addon-actions/dist/constants");
 
 describe("Appointments", () => {
 
-
-  it("should book an interview", () => {
+  beforeEach(() => {
     // Reset the server state and go to the root
     cy.request("GET", "/api/debug/reset");
     cy.visit("/");
     // Ensure data is loaded --> built-in retry of contains
     cy.contains("Monday");
+  });
 
+
+  it("should book an interview", () => {
     // Click the "Add" button in the second appoitnment
     cy.get("[alt=Add]")
       .first() // use first because there is a hidden Add button in the last appointment, and Cypress can only click a single element
